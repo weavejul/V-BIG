@@ -5,8 +5,15 @@ from transformers import TrainerCallback, TrainerState, TrainerControl
 from transformers.training_args import TrainingArguments
 import numpy as np
 from typing import Dict, Any
-import wandb
 import logging
+
+# Optional wandb import
+try:
+    import wandb
+    WANDB_AVAILABLE = True
+except ImportError:
+    WANDB_AVAILABLE = False
+    wandb = None
 
 logger = logging.getLogger(__name__)
 
@@ -67,8 +74,8 @@ class AttributionLoggingCallback(TrainerCallback):
                 # Log to trainer logs
                 trainer.log(attribution_stats)
                 
-                # Log to wandb if enabled
-                if self.use_wandb and wandb.run is not None:
+                # Log to wandb if enabled and available
+                if self.use_wandb and WANDB_AVAILABLE and wandb.run is not None:
                     wandb.log(attribution_stats, step=state.global_step)
                     
                 logger.info(f"Step {state.global_step}: Attribution penalty = {attribution_stats['attribution/mean_penalty']:.6f}")

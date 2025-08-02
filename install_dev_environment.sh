@@ -33,12 +33,12 @@ try:
     import vbig
     print('✅ V-BIG package imported successfully!')
     
-    # Test imports
+    # Test key imports
     from vbig.attribution import compute_ig_attributions
     from vbig.training import IGTrainer
     from vbig.data import NLIDataProcessor
     from vbig.visualization import visualize_attributions
-    print('✅ All modules imported successfully!')
+    print('✅ All key modules imported successfully!')
     
     print('📦 Package version:', vbig.__version__)
     

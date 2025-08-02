@@ -158,17 +158,66 @@ cython_debug/
 #  project, it is recommended to ignore entire .idea directory.
 .idea/
 
-# Project specific
-*.pdf
+# Project specific files
 .DS_Store
+migration_example.py
+
+# Virtual environments (project specific)
+vbig-test-env/
+*-env/
+*_env/
+
+# ML/AI specific
 wandb/
 outputs/
 checkpoints/
 logs/
 results/
 analysis/
-*.png
-*.jpg
-*.jpeg
-*.json
-migration_example.py
+models/
+experiments/
+data/raw/
+data/processed/
+
+# Model files
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+
+# Large data files
+*.csv
+*.tsv
+*.jsonl
+*.parquet
+
+# Visualization outputs (but keep example ones)
+test_*.png
+debug_*.png
+temp_*.png
+*.gif
+
+# Jupyter notebook outputs
+*.ipynb_checkpoints/
+
+# Experiment configs and results
+experiment_*.json
+results_*.json
+config_*.json
+metrics_*.json
+
+# Keep important files
+!requirements.txt
+!setup.py
+!pyproject.toml
+!README.md
+!LICENSE
+!examples/*.py
+!*.md
+
+# Keep the paper
+!**/Variance-Based*.pdf

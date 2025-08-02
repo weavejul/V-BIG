@@ -2,16 +2,17 @@
 
 A Python package implementing Variance-Based Integrated Gradients regularization for training more robust Natural Language Inference (NLI) models.
 
-## Abstract
+## Overview
 
-Pre-trained language models can achieve high accuracy on standard natural language inference (NLI) tasks while still relying heavily on dataset artifacts rather than learning genuine semantic reasoning. In this work, I employ Integrated Gradients (IG) to examine the attributions of an ELECTRA-small model’s predictions on the Stanford Natural Language Inference (SNLI) dataset, uncovering its dependence on superficial patterns. To mitigate this issue, I introduce a variance-based penalty on token-level IG attributions, encouraging the model to distribute importance more evenly across relevant tokens and thereby reduce its reliance on spurious correlations. Quantitatively, this Integrated Gradients Variance model shows modest improvements in accuracy and ROC AUC over a baseline model. Qualitatively, it demonstrates more stable, context-sensitive attributions, better handling of complex examples, and improved calibration. Although the performance gains are incremental, these findings show the potential of attribution-guided regularization to foster more reliable, reasoning-oriented NLI models.
+This package provides tools for training NLI models that are less susceptible to dataset artifacts by using attribution-guided regularization. The key innovation is a variance-based penalty on Integrated Gradients attributions that encourages models to distribute attention more evenly across relevant tokens.
 
-### Features
+### Key Features
 
 - **Attribution-guided training**: Uses Integrated Gradients to compute token-level attributions during training
 - **Variance-based regularization**: Penalizes high attribution variance to reduce spurious correlations
 - **Comprehensive evaluation**: Tools for analyzing model behavior and attribution patterns
-- **Visualizations**: Built-in plotting functions for attribution analysis
+- **Easy-to-use API**: Simple interface for training and evaluating models
+- **Rich visualizations**: Built-in plotting functions for attribution analysis
 
 ## Installation
 
@@ -25,7 +26,7 @@ pip install -e .
 
 ### Dependencies
 
-The package requires Python 3.8+ and the following dependencies:
+The package requires Python 3.8+ and the following key dependencies:
 - PyTorch >= 1.9.0
 - Transformers >= 4.20.0
 - Captum >= 0.5.0
@@ -117,7 +118,7 @@ print(report)
 
 ## Command Line Interface
 
-The code provides cli tools:
+The package provides convenient command-line tools:
 
 ```bash
 # Train a V-BIG model
@@ -154,7 +155,7 @@ vbig/
 
 ## Research Background
 
-This implementation is based on research into making NLI models more robust by reducing their reliance on spurious correlations and dataset artifacts. The main idea is that models exploiting artifacts tend to have highly concentrated attribution patterns, while robust models tend to distribute attention more evenly across semantically relevant tokens.
+This implementation is based on research into making NLI models more robust by reducing their reliance on spurious correlations and dataset artifacts. The key insight is that models exploiting artifacts tend to have highly concentrated attribution patterns, while robust models distribute attention more evenly across semantically relevant tokens.
 
 The variance-based regularization loss is:
 
@@ -170,15 +171,15 @@ Where:
 
 ## Examples
 
-See the `examples/` directory for scripts demonstrating:
+See the `examples/` directory for complete scripts demonstrating:
 
-- **Training**: `train_vbig_model.py` - Training pipeline
+- **Training**: `train_vbig_model.py` - Complete training pipeline
 - **Analysis**: `analyze_attributions.py` - Attribution analysis and visualization
-- **Comparison**: `compare_models.py` - Model comparisons
+- **Comparison**: `compare_models.py` - Systematic model comparison
 
 ## Citation
 
-If you use this code, please cite:
+If you use this code in your research, please cite:
 
 ```bibtex
 @article{weaver2024vbig,
@@ -194,4 +195,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a pull Request.
+Contributions are welcome! Please feel free to submit a Pull Request.
