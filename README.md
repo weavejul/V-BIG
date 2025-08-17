@@ -4,15 +4,19 @@ A Python package implementing Variance-Based Integrated Gradients regularization
 
 ## Overview
 
-This package provides tools for training NLI models that are less susceptible to dataset artifacts by using attribution-guided regularization. The key innovation is a variance-based penalty on Integrated Gradients attributions that encourages models to distribute attention more evenly across relevant tokens.
+In this repo, I attempted to training NLI models to be less susceptible to dataset artifacts by using attribution-guided regularization. The key idea was to add a variance-based penalty on Integrated Gradients attributions to encourage models to distribute attention more evenly across relevant tokens (models exploiting artifacts tend to have highly concentrated attribution patterns, while robust models distribute attention more evenly across semantically relevant tokens). There are some weird consequences of this in the small-scale tests I ran. See the PDF for a paper-style writeup.
 
-### Key Features
+The variance-based regularization loss is:
 
-- **Attribution-guided training**: Uses Integrated Gradients to compute token-level attributions during training
-- **Variance-based regularization**: Penalizes high attribution variance to reduce spurious correlations
-- **Comprehensive evaluation**: Tools for analyzing model behavior and attribution patterns
-- **Easy-to-use API**: Simple interface for training and evaluating models
-- **Rich visualizations**: Built-in plotting functions for attribution analysis
+```
+Total Loss = L_CE + λ * tanh(α * Var_attr)
+```
+
+Where:
+- `L_CE` is the standard cross-entropy loss
+- `Var_attr` is the variance of token-level attributions
+- `λ` controls regularization strength
+- `α` scales the variance for numerical stability
 
 ## Installation
 
@@ -118,7 +122,7 @@ print(report)
 
 ## Command Line Interface
 
-The package provides convenient command-line tools:
+There are a couple of CLI tools:
 
 ```bash
 # Train a V-BIG model
@@ -153,29 +157,13 @@ vbig/
     └── analysis_viz.py       # Analysis plots
 ```
 
-## Research Background
-
-This implementation is based on research into making NLI models more robust by reducing their reliance on spurious correlations and dataset artifacts. The key insight is that models exploiting artifacts tend to have highly concentrated attribution patterns, while robust models distribute attention more evenly across semantically relevant tokens.
-
-The variance-based regularization loss is:
-
-```
-Total Loss = L_CE + λ * tanh(α * Var_attr)
-```
-
-Where:
-- `L_CE` is the standard cross-entropy loss
-- `Var_attr` is the variance of token-level attributions
-- `λ` controls regularization strength
-- `α` scales the variance for numerical stability
-
 ## Examples
 
-See the `examples/` directory for complete scripts demonstrating:
+See the `examples/` directory for some scripts demonstrating:
 
-- **Training**: `train_vbig_model.py` - Complete training pipeline
-- **Analysis**: `analyze_attributions.py` - Attribution analysis and visualization
-- **Comparison**: `compare_models.py` - Systematic model comparison
+- `train_vbig_model.py` - Training pipeline
+- `analyze_attributions.py` - Attribution analysis and visualization
+- `compare_models.py` - Model comparison
 
 ## Citation
 
@@ -195,4 +183,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please feel free to submit a pull request.
